@@ -1,27 +1,16 @@
-package base;
+package sandbox;
 
+import base.Graph;
+import base.Node;
+import utils.CSVReader;
 import utils.GraphUtils;
 
 import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args){
-        Graph graph = new Graph();
-
-        graph.addNode("Google");
-        graph.addNode("Apple");
-        graph.addNode("IBM");
-        graph.addNode("Intel");
-
-        graph.addEdge(graph.getNode("Google"), graph.getNode("Apple"), 0);
-        graph.addEdge(graph.getNode("Google"), graph.getNode("IBM"), 0);
-        graph.addEdge(graph.getNode("IBM"), graph.getNode("Apple"), 0);
-        graph.addEdge(graph.getNode("IBM"), graph.getNode("Intel"), 0);
-
-        if (GraphUtils.graphHasCycle(graph, null, null, new LinkedList<Node>()))
-            System.out.println("YES");
-        else
-            System.out.println("FUCK");
+        
+        Graph graph = CSVReader.loadGraphFromCSV("D:\\Java\\GraphUniversityProject\\docs\\mtx_correl_ewm_vol.csv", ",");
         System.out.println(graph);
     }
 }

@@ -1,3 +1,5 @@
+package base;
+
 public class Edge {
 
     private static int edgeId = 0;
@@ -24,7 +26,7 @@ public class Edge {
 
     @Override
     public String toString() {
-        return "Edge{" +
+        return "base.Edge{" +
                 "target=" + target +
                 ", wieght=" + wieght +
                 '}';

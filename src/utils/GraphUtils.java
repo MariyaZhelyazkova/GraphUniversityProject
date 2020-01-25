@@ -1,3 +1,9 @@
+package utils;
+
+import base.Edge;
+import base.Graph;
+import base.Node;
+
 import java.util.List;
 
 public class GraphUtils {

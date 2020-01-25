@@ -1,3 +1,5 @@
+package base;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,9 @@ public class Graph {
     }
 
     public void addEdge(Node source, Node target, float weight){
+        if (source == target)
+            return;
+
         addEdge(target, new Edge(source, weight));
         addEdge(source, new Edge(target, weight));
     }
@@ -46,7 +51,7 @@ public class Graph {
 
     @Override
     public String toString() {
-        return "Graph{" +
+        return "base.Graph{" +
                 "graph=" + graph +
                 '}';
     }

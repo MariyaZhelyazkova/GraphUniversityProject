@@ -1,3 +1,5 @@
+package base;
+
 public class Node {
     private static int nodeId = 0;
 
@@ -23,7 +25,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
+        return "base.Node{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
