@@ -55,6 +55,49 @@ public class Graph {
         return graph.get(node);
     }
 
+    public List<Edge> getAllEdges(){
+        List<Edge> allEdges = new ArrayList<>();
+
+        for (HashMap.Entry<Node,List<Edge>> entry : graph.entrySet()) {
+            allEdges.addAll(entry.getValue());
+        }
+
+        return allEdges;
+    }
+
+    public Node getSourceNode(Edge edge){
+        for (HashMap.Entry<Node,List<Edge>> entry : graph.entrySet()) {
+            if (entry.getValue().contains(edge))
+                return entry.getKey();
+        }
+
+        return null;
+    }
+
+    public Edge findEdgeOfNodes(Node source, Node target){
+        for (Edge edge : graph.get(source))
+            if (target == edge.getTarget())
+                return edge;
+
+        return null;
+    }
+
+    public void removeEdge(Node source, Node target){
+        Edge remEdge = findEdgeOfNodes(source, target);
+        graph.get(source).remove(remEdge);
+
+        remEdge = findEdgeOfNodes(target, source);
+        graph.get(target).remove(remEdge);
+    }
+
+    public int getEdgeCount(){
+        return getAllEdges().size();
+    }
+
+    public int getNodesCount(){
+        return graph.size();
+    }
+
     @Override
     public String toString() {
         return "base.Graph{" +

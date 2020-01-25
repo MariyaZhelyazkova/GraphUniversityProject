@@ -5,6 +5,7 @@ import base.Graph;
 import base.Node;
 import org.w3c.dom.Element;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -30,10 +31,9 @@ public class GraphUtils {
         }
     }
 
-    public static Graph testSortGraph(Graph graph){
+    public static Graph topThreeGraph(Graph graph){
         Graph sortedGraph = new Graph();
-        for(Node node : graph.getAllNodes())
-        {
+        for(Node node : graph.getAllNodes()) {
             int i = 0;
             List<Edge> edges = graph.getEdges(node);
             Collections.sort(edges, Collections.reverseOrder());
@@ -45,6 +45,32 @@ public class GraphUtils {
         }
 
         return sortedGraph;
+    }
+
+    public static Graph maximumSpanningThree(Graph graph){
+        int sizeOfGraph = graph.getNodesCount();
+        List<Edge> allEdges = graph.getAllEdges();
+        Collections.sort(allEdges, Collections.reverseOrder());
+
+        Graph tree = new Graph();
+
+        for (Edge edge : allEdges) {
+            Node source = graph.getSourceNode(edge);
+            if (source != null){
+                tree.addEdge(source, edge.getTarget(), edge.getWeigth());
+                if (graphHasCycle(tree, source, null, new ArrayList<>())){
+                    tree.removeEdge(source, edge.getTarget());
+                    System.out.println("Removing edges. Current count = " + tree.getEdgeCount());
+                }
+
+                else {
+                    if ((sizeOfGraph -1) * 2 == tree.getEdgeCount())
+                        break;
+                }
+            }
+        }
+
+        return tree;
     }
 
 }
