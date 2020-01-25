@@ -50,7 +50,7 @@ public class CSVReader {
         Node targetNode = nodes.get(currentLine - 1);
         for (int i = 1; i < line.length; i++) {
 
-            graph.addEdge(nodes.get(i-1), targetNode, Float.parseFloat(line[i]));
+            graph.addEdge(nodes.get(i-1), targetNode, Math.abs(Float.parseFloat(line[i])));
         }
 
         return graph;

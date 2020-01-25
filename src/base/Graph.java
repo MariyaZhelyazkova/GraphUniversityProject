@@ -1,9 +1,6 @@
 package base;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 public class Graph {
     private Map<Node, List<Edge>> graph = new HashMap<>();
@@ -43,6 +40,15 @@ public class Graph {
         }
 
         return null;
+    }
+
+    public List<Node> getAllNodes(){
+        List<Node> nodes = new ArrayList<>();
+
+        for (HashMap.Entry<Node,List<Edge>> entry : graph.entrySet())
+            nodes.add(entry.getKey());
+
+        return nodes;
     }
 
     public List<Edge> getEdges(Node node){

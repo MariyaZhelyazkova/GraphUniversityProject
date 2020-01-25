@@ -1,6 +1,6 @@
 package base;
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
 
     private static int edgeId = 0;
 
@@ -9,14 +9,14 @@ public class Edge {
     }
 
     private final Node target;
-    private final float wieght;
+    private final Float wieght;
 
     public Edge(Node target, float weight){
         this.target = target;
         this.wieght = weight;
     }
 
-    public float getWeigth(){
+    public Float getWeigth(){
         return wieght;
     }
 
@@ -30,5 +30,10 @@ public class Edge {
                 "target=" + target +
                 ", wieght=" + wieght +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Edge o) {
+        return this.getWeigth().compareTo(o.getWeigth());
     }
 }
