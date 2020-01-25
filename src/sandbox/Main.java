@@ -1,3 +1,7 @@
+package base;
+
+import utils.GraphUtils;
+
 import java.util.LinkedList;
 
 public class Main {
