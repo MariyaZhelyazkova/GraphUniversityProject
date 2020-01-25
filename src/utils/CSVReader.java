@@ -48,8 +48,7 @@ public class CSVReader {
 
     private static Graph addEdges(List<Node> nodes, String[] line, int currentLine, Graph graph){
         Node targetNode = nodes.get(currentLine - 1);
-        for (int i = 1; i < line.length; i++) {
-
+        for (int i = currentLine ; i < line.length; i++) {
             graph.addEdge(nodes.get(i-1), targetNode, Math.abs(Float.parseFloat(line[i])));
         }
 

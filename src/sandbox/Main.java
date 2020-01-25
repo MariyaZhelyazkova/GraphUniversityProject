@@ -19,8 +19,12 @@ public class Main {
         if(GraphUtils.graphHasCycle(graph, null, null, new LinkedList<Node>()))
             System.out.println("YES");
 
-        System.out.println("XML: " + LocalDateTime.now().toString());
-        XMLWriter.exportToGephi(graph, "");
+        System.out.println("XML 1 : " + LocalDateTime.now().toString());
+        XMLWriter.exportToGephi(graph, "D:\\graph.gexf");
+
+        Graph sorted = GraphUtils.testSortGraph(graph);
+        System.out.println("XML 2 : " + LocalDateTime.now().toString());
+        XMLWriter.exportToGephi(sorted, "D:\\sorted_graph.gexf");
 
         System.out.println("END: " + LocalDateTime.now().toString());
 
