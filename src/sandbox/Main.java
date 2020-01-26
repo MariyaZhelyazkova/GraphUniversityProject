@@ -1,14 +1,11 @@
 package sandbox;
 
 import base.Graph;
-import base.Node;
 import utils.CSVReader;
 import utils.GraphUtils;
 import utils.XMLWriter;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args){
@@ -27,12 +24,16 @@ public class Main {
         //Loading the graph from CSV file
         Graph graph = CSVReader.loadGraphFromCSV(filepath.concat(inFilename), ",");
 
+        //Sorting the graph and returning a new graph with the three highest weight for all of its nodes
         Graph sorted = GraphUtils.topThreeGraph(graph);
 
+        //Exporting the sorted graph
         XMLWriter.exportToGephi(sorted, filepath.concat(exportFilename));
 
+        //Finding the Maximum Spanning three of the sorted graph
         Graph maxSpanningTree = GraphUtils.maximumSpanningThree(sorted);
 
+        //Exporting the Maximum Spanning Tree
         XMLWriter.exportToGephi(maxSpanningTree, filepath.concat(exportTreeFilename));
     }
 }

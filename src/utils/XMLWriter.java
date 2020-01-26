@@ -18,6 +18,8 @@ public class XMLWriter {
 
     public static void exportToGephi(Graph graph, String filename){
         try {
+            GraphUtils.removeParallelEdges(graph);
+
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -73,19 +75,15 @@ public class XMLWriter {
     }
 
     private static void addEdgesToXML(Element edgesElement, Document doc, Graph graph){
-        int id = 1;
-
         for(Node node : graph.getAllNodes())
             for (Edge edge : graph.getEdges(node)) {
                 Element edgeElement = doc.createElement("edge");
-                edgeElement.setAttribute("id", String.valueOf(id));
+                edgeElement.setAttribute("id", String.valueOf(edge.getId()));
                 edgeElement.setAttribute("source", String.valueOf(node.getId()));
                 edgeElement.setAttribute("target", String.valueOf(edge.getTarget().getId()));
                 edgeElement.setAttribute("weight", String.valueOf(edge.getWeigth()));
 
                 edgesElement.appendChild(edgeElement);
-
-                id++;
             }
     }
 }

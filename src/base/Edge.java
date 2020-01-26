@@ -9,26 +9,32 @@ public class Edge implements Comparable<Edge> {
     }
 
     private final Node target;
-    private final Float wieght;
+    private final Float weight;
+    private final int id;
 
     public Edge(Node target, float weight){
         this.target = target;
-        this.wieght = weight;
+        this.weight = weight;
+        this.id = getNextEdgeId();
     }
 
     public Float getWeigth(){
-        return wieght;
+        return weight;
     }
 
     public Node getTarget(){
         return target;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "base.Edge{" +
                 "target=" + target +
-                ", wieght=" + wieght +
+                ", wieght=" + weight +
                 '}';
     }
 

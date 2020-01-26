@@ -9,10 +9,6 @@ public class Graph {
         graph.putIfAbsent(node, new Vector<>());
     }
 
-    public void addNode(String name){
-        addNode(new Node(name));
-    }
-
     public void addEdge(Node parent, Edge edge){
         if (!graph.containsKey(parent))
             addNode(parent);
@@ -31,15 +27,6 @@ public class Graph {
     public Node getFirstNode(){
         HashMap.Entry<Node,List<Edge>> entry = graph.entrySet().iterator().next();
         return entry.getKey();
-    }
-
-    public Node getNode(String name){
-        for (HashMap.Entry<Node,List<Edge>> entry : graph.entrySet()) {
-            if(entry.getKey().getName() == name)
-                return entry.getKey();
-        }
-
-        return null;
     }
 
     public List<Node> getAllNodes(){
@@ -88,6 +75,10 @@ public class Graph {
 
         remEdge = findEdgeOfNodes(target, source);
         graph.get(target).remove(remEdge);
+    }
+
+    public void removeEdge(Node source, Edge edge){
+        graph.get(source).remove(edge);
     }
 
     public int getEdgeCount(){

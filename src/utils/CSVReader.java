@@ -22,7 +22,7 @@ public class CSVReader {
                 if (currentLine == 0)
                     nodes = loadNodes(line, separator);
                 else
-                    graph = addEdges(nodes, line.split(separator), currentLine, graph);
+                    addEdges(nodes, line.split(separator), currentLine, graph);
 
                 currentLine++;
             }
@@ -46,12 +46,10 @@ public class CSVReader {
         return nodes;
     }
 
-    private static Graph addEdges(List<Node> nodes, String[] line, int currentLine, Graph graph){
+    private static void addEdges(List<Node> nodes, String[] line, int currentLine, Graph graph){
         Node targetNode = nodes.get(currentLine - 1);
         for (int i = currentLine ; i < line.length; i++) {
             graph.addEdge(nodes.get(i-1), targetNode, Math.abs(Float.parseFloat(line[i])));
         }
-
-        return graph;
     }
 }

@@ -3,10 +3,8 @@ package utils;
 import base.Edge;
 import base.Graph;
 import base.Node;
-import org.w3c.dom.Element;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class GraphUtils {
         for(Node node : graph.getAllNodes()) {
             int i = 0;
             List<Edge> edges = graph.getEdges(node);
-            Collections.sort(edges, Collections.reverseOrder());
+            edges.sort(Collections.reverseOrder());
             for (Edge edge : edges){
                 sortedGraph.addEdge(node, edge.getTarget(), edge.getWeigth());
                 i++;
@@ -50,7 +48,7 @@ public class GraphUtils {
     public static Graph maximumSpanningThree(Graph graph){
         int sizeOfGraph = graph.getNodesCount();
         List<Edge> allEdges = graph.getAllEdges();
-        Collections.sort(allEdges, Collections.reverseOrder());
+        allEdges.sort(Collections.reverseOrder());
 
         Graph tree = new Graph();
 
@@ -58,19 +56,23 @@ public class GraphUtils {
             Node source = graph.getSourceNode(edge);
             if (source != null){
                 tree.addEdge(source, edge.getTarget(), edge.getWeigth());
-                if (graphHasCycle(tree, source, null, new ArrayList<>())){
+                if (graphHasCycle(tree, source, null, new ArrayList<>()))
                     tree.removeEdge(source, edge.getTarget());
-                    System.out.println("Removing edges. Current count = " + tree.getEdgeCount());
-                }
-
-                else {
-                    if ((sizeOfGraph -1) * 2 == tree.getEdgeCount())
+                else if ((sizeOfGraph -1) * 2 == tree.getEdgeCount())
                         break;
-                }
             }
         }
 
         return tree;
+    }
+
+    public static void removeParallelEdges(Graph graph){
+        for (Node node : graph.getAllNodes())
+            for(Edge edge : graph.getEdges(node)){
+                Edge parallelEdge = graph.findEdgeOfNodes(edge.getTarget(), node);
+                if (parallelEdge != null)
+                    graph.removeEdge(edge.getTarget(), parallelEdge);
+            }
     }
 
 }
