@@ -6,7 +6,7 @@ public class Graph {
     private Map<Node, List<Edge>> graph = new HashMap<>();
 
     public void addNode(Node node){
-        graph.putIfAbsent(node, new Vector<>());
+        graph.putIfAbsent(node, new ArrayList<>());
     }
 
     public void addEdge(Node parent, Edge edge){
@@ -20,8 +20,11 @@ public class Graph {
         if (source == target)
             return;
 
-        addEdge(target, new Edge(source, weight));
-        addEdge(source, new Edge(target, weight));
+        if (findEdgeOfNodes(source, target) == null)
+            addEdge(source, new Edge(target, weight));
+
+        if (findEdgeOfNodes(target, source) == null)
+            addEdge(target, new Edge(source, weight));
     }
 
     public Node getFirstNode(){
@@ -62,9 +65,12 @@ public class Graph {
     }
 
     public Edge findEdgeOfNodes(Node source, Node target){
-        for (Edge edge : graph.get(source))
-            if (target == edge.getTarget())
-                return edge;
+        List<Edge> edges = graph.get(source);
+
+        if(edges != null)
+            for (Edge edge : graph.get(source))
+                if (target == edge.getTarget())
+                    return edge;
 
         return null;
     }

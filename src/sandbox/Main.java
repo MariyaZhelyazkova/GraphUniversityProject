@@ -27,11 +27,11 @@ public class Main {
         //Sorting the graph and returning a new graph with the three highest weight for all of its nodes
         Graph sorted = GraphUtils.topThreeGraph(graph);
 
-        //Exporting the sorted graph
-        XMLWriter.exportToGephi(sorted, filepath.concat(exportFilename));
-
         //Finding the Maximum Spanning three of the sorted graph
         Graph maxSpanningTree = GraphUtils.maximumSpanningThree(sorted);
+
+        //Exporting the sorted graph
+        XMLWriter.exportToGephi(sorted, filepath.concat(exportFilename));
 
         //Exporting the Maximum Spanning Tree
         XMLWriter.exportToGephi(maxSpanningTree, filepath.concat(exportTreeFilename));

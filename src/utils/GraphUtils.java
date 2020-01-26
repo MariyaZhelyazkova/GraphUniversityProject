@@ -31,8 +31,10 @@ public class GraphUtils {
 
     public static Graph topThreeGraph(Graph graph){
         Graph sortedGraph = new Graph();
+
         for(Node node : graph.getAllNodes()) {
             int i = 0;
+
             List<Edge> edges = graph.getEdges(node);
             edges.sort(Collections.reverseOrder());
             for (Edge edge : edges){
