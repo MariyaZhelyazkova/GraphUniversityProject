@@ -6,33 +6,33 @@ import utils.CSVReader;
 import utils.GraphUtils;
 import utils.XMLWriter;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args){
+        execute("\\docs\\mtx_correl_ewm_vol.csv",
+                "\\docs\\sorted_graph_correl.gexf",
+                "\\docs\\spanning_tree_correl.gexf");
 
-        System.out.println("Starting to read: " + LocalDateTime.now().toString());
-        Graph graph = CSVReader.loadGraphFromCSV("D:\\Java\\GraphUniversityProject\\docs\\mtx_correl_ewm_vol.csv", ",");
+        execute("\\docs\\mtx_correl_log_ret.csv",
+                "\\docs\\sorted_graph_log_return.gexf",
+                "\\docs\\spanning_tree_log_return.gexf");
+    }
 
-        System.out.println("Checking for cycle: " + LocalDateTime.now().toString());
-        if(GraphUtils.graphHasCycle(graph, null, null, new LinkedList<Node>()))
-            System.out.println("YES");
+    private static void execute(String inFilename, String exportFilename, String exportTreeFilename){
+        String filepath = new File("").getAbsolutePath();
 
-        System.out.println("XML 1 : " + LocalDateTime.now().toString());
-        XMLWriter.exportToGephi(graph, "D:\\graph.gexf");
+        //Loading the graph from CSV file
+        Graph graph = CSVReader.loadGraphFromCSV(filepath.concat(inFilename), ",");
 
         Graph sorted = GraphUtils.topThreeGraph(graph);
-        System.out.println("XML 2 : " + LocalDateTime.now().toString());
-        XMLWriter.exportToGephi(sorted, "D:\\sorted_graph.gexf");
 
-        System.out.println("Searching for maximum spanning tree: " + LocalDateTime.now().toString());
+        XMLWriter.exportToGephi(sorted, filepath.concat(exportFilename));
+
         Graph maxSpanningTree = GraphUtils.maximumSpanningThree(sorted);
-        System.out.println("XML 2 : " + LocalDateTime.now().toString());
-        XMLWriter.exportToGephi(maxSpanningTree, "D:\\spanning_tree.gexf");
 
-        System.out.println("END: " + LocalDateTime.now().toString());
-
-        System.out.println(graph);
+        XMLWriter.exportToGephi(maxSpanningTree, filepath.concat(exportTreeFilename));
     }
 }
